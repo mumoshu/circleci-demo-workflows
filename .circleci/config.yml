@@ -85,7 +85,11 @@ workflows:
       - precompile_assets:
           requires:
             - bundle_dependencies
+      - hold:
+          type: approval
+          requires:
+            - precompile_assets
+            - rake_test
       - deploy:
           requires:
-            - rake_test
-            - precompile_assets
+            - hold
